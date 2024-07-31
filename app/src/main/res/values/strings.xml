@@ -3,4 +3,8 @@
     <string name="hint_input_search">검색어를 입력해 주세요.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_search_result">검색 결과가 없습니다.</string>
+
+    <string name="ask_notification_permission_dialog_title">권한 동의 알림</string>
+    <string name="yes">동의</string>
+    <string name="deny_notification_permission">반대</string>
 </resources>

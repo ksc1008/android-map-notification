@@ -16,6 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Map"
         tools:targetApi="31">
+        <service
+            android:name="ksc.campus.tech.kakao.map.presentation.views.services.MapFirebaseMessagingService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <activity
             android:name=".presentation.views.MainActivity"
             android:exported="true">
