@@ -2,6 +2,9 @@ package ksc.campus.tech.kakao.map.data.apis
 
 import android.content.Context
 import androidx.room.Room
+import com.google.firebase.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.remoteConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,5 +43,14 @@ object SearchKakaoRetrofitServiceModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(KakaoSearchRetrofitService::class.java)
+    }
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object FirebaseRemoteConfigModule {
+    @Provides
+    fun provideFirebaseRemoteConfig(): FirebaseRemoteConfig {
+        return Firebase.remoteConfig
     }
 }

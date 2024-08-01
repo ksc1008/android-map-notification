@@ -4,6 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import ksc.campus.tech.kakao.map.data.repositoryimpls.FirebaseRemoteConfigRepositoryImpl
 import ksc.campus.tech.kakao.map.data.repositoryimpls.MapViewRepositoryImpl
 import ksc.campus.tech.kakao.map.data.repositoryimpls.SearchKeywordRepositoryImpl
 import ksc.campus.tech.kakao.map.data.repositoryimpls.SearchResultRepositoryImpl
@@ -37,4 +38,13 @@ abstract class SearchResultRepositoryModule {
     abstract fun bindSearchResultRepository(
         searchResultRepositoryImpl: SearchResultRepositoryImpl
     ): SearchResultRepository
+}
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class FirebaseRemoteConfigRepositoryModule {
+    @Binds
+    @Singleton
+    abstract fun bindFirebaseRemoteConfigRepository(
+        firebaseRemoteConfigRepositoryImpl: FirebaseRemoteConfigRepositoryImpl
+    ): FirebaseRemoteConfigRepository
 }
