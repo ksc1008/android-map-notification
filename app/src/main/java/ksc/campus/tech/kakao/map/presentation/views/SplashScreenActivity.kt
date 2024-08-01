@@ -27,28 +27,27 @@ class SplashScreenActivity : AppCompatActivity() {
     private lateinit var binding:ActivitySplashScreenBinding
     private val viewModel: SplashActivityViewModel by viewModels()
     private var shouldDisplaySplashScreen = true
-    override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
-        super.onCreate(savedInstanceState)
 
+    private fun bindData(){
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.appState.collect{
                     shouldDisplaySplashScreen = (it == FirebaseRemoteConfigRepository.AppState.UNKNOWN)
-
-                    when(it){
-                        FirebaseRemoteConfigRepository.AppState.UNAVAILABLE ->
-                            binding.alertText = resources.getString(R.string.service_unavailable_message)
-                        FirebaseRemoteConfigRepository.AppState.ON_MAINTENANCE ->
-                            binding.alertText = resources.getString(R.string.maintenance_message)
-                        FirebaseRemoteConfigRepository.AppState.ON_SERVICE ->
-                            switchToMainActivity()
-                        else -> {}
-
-                    }
                 }
             }
         }
+
+        viewModel.shouldSwitchActivity.observe(this){
+            if(it){
+                switchToMainActivity()
+            }
+        }
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
+        super.onCreate(savedInstanceState)
+
+        bindData()
 
         splashScreen.setKeepOnScreenCondition{
             shouldDisplaySplashScreen
@@ -58,7 +57,7 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    fun switchToMainActivity(){
+    private fun switchToMainActivity(){
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
