@@ -16,8 +16,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashActivityViewModel @Inject constructor(application:Application, remoteConfigRepository: FirebaseRemoteConfigRepository): AndroidViewModel(application) {
-    private val _launchErrorMessage = MutableLiveData("")
-    private val _shouldSwitchActivity = MutableLiveData(false)
+    init{
+        viewModelScope.launch {
+            remoteConfigRepository.fetchRemoteConfig()
+        }
+    }
 
     val appState = remoteConfigRepository.currentAppState.stateIn(
         scope = viewModelScope,
@@ -25,30 +28,11 @@ class SplashActivityViewModel @Inject constructor(application:Application, remot
         started = SharingStarted.WhileSubscribed(DEFAULT_TIMEOUT)
     )
 
-    val shouldSwitchActivity: LiveData<Boolean>
-        get() = _shouldSwitchActivity
-
-    val launchErrorMessage:LiveData<String>
-        get() = _launchErrorMessage
-
-    init{
-        viewModelScope.launch {
-            remoteConfigRepository.fetchRemoteConfig()
-            appState.collect{
-                when(it){
-                    FirebaseRemoteConfigRepository.AppState.UNAVAILABLE ->
-                        _launchErrorMessage.postValue(application.resources.getString(R.string.service_unavailable_message))
-                    FirebaseRemoteConfigRepository.AppState.ON_MAINTENANCE ->
-                        _launchErrorMessage.postValue(application.resources.getString(R.string.maintenance_message))
-                    FirebaseRemoteConfigRepository.AppState.ON_SERVICE ->
-                        _shouldSwitchActivity.postValue(true)
-                    else -> {
-                        _launchErrorMessage.postValue("")
-                    }
-                }
-            }
-        }
-    }
+    val appConfigMessage = remoteConfigRepository.appConfigMessage.stateIn(
+        scope = viewModelScope,
+        initialValue = "",
+        started = SharingStarted.WhileSubscribed(DEFAULT_TIMEOUT)
+    )
 
     companion object{
         private const val DEFAULT_TIMEOUT = 5000L

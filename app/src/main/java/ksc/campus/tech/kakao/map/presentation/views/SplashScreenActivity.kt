@@ -27,34 +27,41 @@ class SplashScreenActivity : AppCompatActivity() {
     private lateinit var binding:ActivitySplashScreenBinding
     private val viewModel: SplashActivityViewModel by viewModels()
     private var shouldDisplaySplashScreen = true
+    private var shouldSwitchActivity = false
 
     private fun bindData(){
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.appState.collect{
                     shouldDisplaySplashScreen = (it == FirebaseRemoteConfigRepository.AppState.UNKNOWN)
+
+                    if(it == FirebaseRemoteConfigRepository.AppState.ON_SERVICE){
+                        switchToMainActivity()
+                    }
                 }
             }
         }
-
-        viewModel.shouldSwitchActivity.observe(this){
-            if(it){
-                switchToMainActivity()
-            }
-        }
     }
+
+    private fun bindActivityLayout(){
+        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
 
         bindData()
 
-        splashScreen.setKeepOnScreenCondition{
+        splashScreen.setKeepOnScreenCondition {
             shouldDisplaySplashScreen
         }
 
-        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        bindActivityLayout()
     }
 
     private fun switchToMainActivity(){
