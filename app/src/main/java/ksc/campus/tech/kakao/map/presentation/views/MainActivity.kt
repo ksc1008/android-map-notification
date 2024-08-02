@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         if (isGranted) {
             // FCM SDK (and your app) can post notifications.
         } else {
-            Toast.makeText(this, "해당 앱에 대한 알림 메시지를 표시하지 않습니다.",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, resources.getString(R.string.deny_toast_message),Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             setTitle(getString(R.string.ask_notification_permission_dialog_title))
             setMessage(
                 String.format(
-                    "다양한 알림 소식을 받기 위해 권한을 허용하시겠어요?\n(알림 에서 %s의 알림 권한을 허용해주세요.)",
+                    resources.getString(R.string.ask_notification_permission_dialog_body),
                     getString(R.string.app_name)
                 )
             )

@@ -3,6 +3,15 @@
     <string name="hint_input_search">검색어를 입력해 주세요.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_search_result">검색 결과가 없습니다.</string>
-    <string name="maintenance_message">서버 점검 중 입니다. 나중에 다시 시도해 주세요.</string>
-    <string name="service_unavailable_message">현재 서비스를 이용할 수 없습니다.</string>
+
+    <string name="ask_notification_permission_dialog_title">권한 동의 알림</string>
+    <string name="yes">동의</string>
+    <string name="deny_notification_permission">반대</string>
+    <string name="deny_toast_message"></string>
+    <string name="ask_notification_permission_dialog_body">다양한 알림 소식을 받기 위해 권한을 허용하시겠어요?
+(알림 에서 %s의 알림 권한을 허용해주세요.)</string>
+
+    <string name="foreground_notification_title">[중요] 포그라운드 알림</string>
+    <string name="foreground_notification_bigText">앱이 실행 중일 때는 포그라운드 알림이 발생합니다.</string>
+    <string name="foreground_notificationChannel_description">맵 앱 알림입니다.</string>
 </resources>

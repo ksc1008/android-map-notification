@@ -16,7 +16,6 @@ class ForegroundMessaging(val context: Context) {
 
 
     init {
-
         val intent = Intent(
             context, MainActivity::class.java).apply{
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -34,17 +33,17 @@ class ForegroundMessaging(val context: Context) {
             CHANNEL_ID
         )
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("[중요] 포그라운드 알림")
+            .setContentTitle(context.resources.getString(R.string.foreground_notification_title))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
             .setStyle(
                 NotificationCompat.BigTextStyle()
-                    .bigText("앱이 실행 중일 때는 포그라운드 알림이 발생합니다.")
+                    .bigText(context.resources.getString(R.string.foreground_notification_bigText))
             )
             .setAutoCancel(true)
     }
     fun createNotificationChannel(context: Context) {
-        val descriptionText = "맵 앱 알림입니다."
+        val descriptionText = context.resources.getString(R.string.foreground_notificationChannel_description)
         val channel = NotificationChannel(
             CHANNEL_ID,
             CHANNEL_NAME,
