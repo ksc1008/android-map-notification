@@ -12,6 +12,7 @@ class MainApplication: Application() {
 
         try {
             KakaoMapSdk.init(this, resources.getString(R.string.KAKAO_API_KEY))
+            // Log.d("KSC", KakaoMapSdk.INSTANCE.hashKey)
         } catch (e: Exception) {
             Log.e("KSC", e.message ?: "")
             Log.e("KSC", e.stackTraceToString())

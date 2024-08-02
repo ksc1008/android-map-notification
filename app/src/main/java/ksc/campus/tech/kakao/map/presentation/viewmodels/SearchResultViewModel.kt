@@ -24,12 +24,12 @@ class SearchResultViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(DEFAULT_TIMEOUT)
     )
 
-    companion object{
-        private const val DEFAULT_TIMEOUT = 5000L
-    }
-
     override fun onCleared() {
         Log.d("KSC", "viewmodel canceled")
         super.onCleared()
+    }
+
+    companion object{
+        private const val DEFAULT_TIMEOUT = 5000L
     }
 }

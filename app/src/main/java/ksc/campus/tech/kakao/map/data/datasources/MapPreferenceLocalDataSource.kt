@@ -77,14 +77,12 @@ class MapPreferenceLocalDataSource @Inject constructor() {
         val editor = getSharedPreference(context).edit()
         editor.putString(CAMERA_POSITION_KEY, CameraPositionJsonMapper.cameraPositionSerializer.toJson(position))
         editor.apply()
-        Log.d("KSC", "scp")
     }
 
     fun saveSelectedLocation(context: Context, location: LocationInfo) {
         val editor = getSharedPreference(context).edit()
         editor.putString(SELECTED_LOCATION_KEY, gson.toJson(location))
         editor.apply()
-        Log.d("KSC", "ssl")
     }
 
     fun setOnPreferenceChanged(context: Context, onChanged: OnMapPreferenceChanged){
