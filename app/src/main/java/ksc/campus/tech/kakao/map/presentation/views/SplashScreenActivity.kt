@@ -27,7 +27,6 @@ class SplashScreenActivity : AppCompatActivity() {
     private lateinit var binding:ActivitySplashScreenBinding
     private val viewModel: SplashActivityViewModel by viewModels()
     private var shouldDisplaySplashScreen = true
-    private var shouldSwitchActivity = false
 
     private fun bindData(){
         lifecycleScope.launch {
