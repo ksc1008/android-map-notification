@@ -16,7 +16,7 @@ import ksc.campus.tech.kakao.map.domain.repositories.FirebaseRemoteConfigReposit
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashActivityViewModel @Inject constructor(application:Application, remoteConfigRepository: FirebaseRemoteConfigRepository): AndroidViewModel(application) {
+class SplashActivityViewModel @Inject constructor(remoteConfigRepository: FirebaseRemoteConfigRepository): ViewModel(){
 
     val appState = remoteConfigRepository.currentAppState.stateIn(
         scope = viewModelScope,
