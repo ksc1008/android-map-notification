@@ -4,7 +4,6 @@ import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dagger.hilt.android.AndroidEntryPoint
-import ksc.campus.tech.kakao.map.presentation.views.ForegroundMessaging
 
 @AndroidEntryPoint
 class MapFirebaseMessagingService:FirebaseMessagingService() {
@@ -19,11 +18,9 @@ class MapFirebaseMessagingService:FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
         try {
-            foregroundMessaging.notificationManager.notify(
-                ForegroundMessaging.NOTIFICATION_ID,
-                foregroundMessaging.notificationBuilder.setContentText(message.notification?.body)
-                    .build()
-            )
+            message.notification?.body?.let {
+                foregroundMessaging.notifyMessage(it)
+            }
         }
         catch (e:Exception){
             Log.d("KSC", e.message?:"")
