@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -18,8 +17,6 @@ import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.StateFlow
 import ksc.campus.tech.kakao.map.R
@@ -53,6 +50,13 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "해당 앱에 대한 알림 메시지를 표시하지 않습니다.",Toast.LENGTH_SHORT).show()
         }
     }
+
+    private val fragmentManager = supportFragmentManager
+    private lateinit var searchFragment: Fragment
+    private lateinit var mapFragment: Fragment
+    private lateinit var mainActivityBinding: ActivityMainBinding
+
+    val searchViewModel: SearchActivityViewModel by viewModels()
 
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
@@ -93,14 +97,6 @@ class MainActivity : AppCompatActivity() {
             show()
         }
     }
-
-
-    private val fragmentManager = supportFragmentManager
-    private lateinit var searchFragment: Fragment
-    private lateinit var mapFragment: Fragment
-    private lateinit var mainActivityBinding: ActivityMainBinding
-
-    val searchViewModel: SearchActivityViewModel by viewModels()
 
     private fun initiateBinding(){
         mainActivityBinding.viewModel = searchViewModel
