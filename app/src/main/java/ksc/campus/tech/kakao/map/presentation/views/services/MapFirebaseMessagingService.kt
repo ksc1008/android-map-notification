@@ -3,8 +3,10 @@ package ksc.campus.tech.kakao.map.presentation.views.services
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import dagger.hilt.android.AndroidEntryPoint
 import ksc.campus.tech.kakao.map.presentation.views.ForegroundMessaging
 
+@AndroidEntryPoint
 class MapFirebaseMessagingService:FirebaseMessagingService() {
     private val foregroundMessaging: ForegroundMessaging by lazy{
         ForegroundMessaging(this)
