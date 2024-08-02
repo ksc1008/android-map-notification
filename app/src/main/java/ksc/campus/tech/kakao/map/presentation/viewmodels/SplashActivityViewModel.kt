@@ -11,26 +11,16 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import ksc.campus.tech.kakao.map.R
+import ksc.campus.tech.kakao.map.domain.models.AppServiceState
 import ksc.campus.tech.kakao.map.domain.repositories.FirebaseRemoteConfigRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class SplashActivityViewModel @Inject constructor(application:Application, remoteConfigRepository: FirebaseRemoteConfigRepository): AndroidViewModel(application) {
-    init{
-        viewModelScope.launch {
-            remoteConfigRepository.fetchRemoteConfig()
-        }
-    }
 
     val appState = remoteConfigRepository.currentAppState.stateIn(
         scope = viewModelScope,
-        initialValue = FirebaseRemoteConfigRepository.AppState.UNKNOWN,
-        started = SharingStarted.WhileSubscribed(DEFAULT_TIMEOUT)
-    )
-
-    val appConfigMessage = remoteConfigRepository.appConfigMessage.stateIn(
-        scope = viewModelScope,
-        initialValue = "",
+        initialValue = AppServiceState(FirebaseRemoteConfigRepository.AppState.UNKNOWN,""),
         started = SharingStarted.WhileSubscribed(DEFAULT_TIMEOUT)
     )
 

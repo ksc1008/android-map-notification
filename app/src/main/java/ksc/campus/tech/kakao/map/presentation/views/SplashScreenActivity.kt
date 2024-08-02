@@ -33,9 +33,9 @@ class SplashScreenActivity : AppCompatActivity() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.appState.collect{
-                    shouldDisplaySplashScreen = (it == FirebaseRemoteConfigRepository.AppState.UNKNOWN)
+                    shouldDisplaySplashScreen = (it.serviceState == FirebaseRemoteConfigRepository.AppState.UNKNOWN)
 
-                    if(it == FirebaseRemoteConfigRepository.AppState.ON_SERVICE){
+                    if(it.serviceState == FirebaseRemoteConfigRepository.AppState.ON_SERVICE){
                         switchToMainActivity()
                     }
                 }

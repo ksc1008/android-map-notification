@@ -34,7 +34,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.appConfigMessage}"
+            android:text="@{viewModel.appState.serviceMessage}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
