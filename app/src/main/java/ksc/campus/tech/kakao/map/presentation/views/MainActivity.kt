@@ -27,6 +27,7 @@ import ksc.campus.tech.kakao.map.presentation.views.adapters.SearchKeywordClickC
 import ksc.campus.tech.kakao.map.presentation.views.fragments.KakaoMapFragment
 import ksc.campus.tech.kakao.map.presentation.views.fragments.SearchResultFragment
 import ksc.campus.tech.kakao.map.presentation.views.services.MapFirebaseMessagingService
+import javax.inject.Inject
 
 
 @BindingAdapter("app:keywords")
@@ -37,10 +38,7 @@ fun attachList(recyclerView: RecyclerView, items: StateFlow<List<String>>?){
 }
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    val foregroundMessaging: ForegroundMessaging by lazy{
-        ForegroundMessaging(this)
-    }
+class MainActivity: AppCompatActivity() {
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
     ) { isGranted: Boolean ->
@@ -116,7 +114,7 @@ class MainActivity : AppCompatActivity() {
         initiateViews()
         initiateLiveDataObservation()
 
-        foregroundMessaging.createNotificationChannel(this)
+        //foregroundMessaging.createNotificationChannel(this)
     }
 
     private fun initiateLiveDataObservation() {
