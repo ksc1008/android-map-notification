@@ -6,9 +6,11 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import dagger.hilt.android.qualifiers.ActivityContext
 import ksc.campus.tech.kakao.map.R
+import javax.inject.Inject
 
-class ForegroundMessaging(val context: Context) {
+class ForegroundMessaging(context: Context) {
 
     var notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -41,17 +43,6 @@ class ForegroundMessaging(val context: Context) {
                     .bigText(context.resources.getString(R.string.foreground_notification_bigText))
             )
             .setAutoCancel(true)
-    }
-    fun createNotificationChannel(context: Context) {
-        val descriptionText = context.resources.getString(R.string.foreground_notificationChannel_description)
-        val channel = NotificationChannel(
-            CHANNEL_ID,
-            CHANNEL_NAME,
-            NotificationManager.IMPORTANCE_DEFAULT
-        ).apply {
-            description = descriptionText
-        }
-        notificationManager.createNotificationChannel(channel)
     }
 
     companion object {
